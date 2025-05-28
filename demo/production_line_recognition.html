@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生产线认知 - 工业机器人自动化颗粒灌装生产线虚拟仿真平台</title>
+    <link rel="stylesheet" href="simulation_style.css">
+</head>
+<body>
+    <div class="scene-background"></div>
+    
+    <!-- 顶部标题栏 -->
+    <div class="top-bar">
+        <div class="title-section">
+            <h1>生产线认知学习</h1>
+            <p class="subtitle">Production Line Recognition Learning</p>
+        </div>
+        <div class="top-controls">
+            <div class="view-tabs">
+                <button class="tab-btn active">整体视图</button>
+                <button class="tab-btn">工作站视图</button>
+                <button class="tab-btn">设备视图</button>
+            </div>
+            <div class="datetime" id="datetime"></div>
+        </div>
+    </div>
+    
+    <!-- 左侧面板 -->
+    <div class="left-panel">
+        <div class="panel-header">
+            <h3>生产线组成</h3>
+        </div>
+        <div class="component-tree">
+            <div class="tree-item active">
+                <span class="tree-icon">🏭</span>
+                <span class="tree-label">整体生产线</span>
+            </div>
+            <div class="tree-item sub-item">
+                <span class="tree-icon">📦</span>
+                <span class="tree-label">上料工作站</span>
+            </div>
+            <div class="tree-item sub-item">
+                <span class="tree-icon">🔍</span>
+                <span class="tree-label">检测工作站</span>
+            </div>
+            <div class="tree-item sub-item">
+                <span class="tree-icon">🏷️</span>
+                <span class="tree-label">贴标工作站</span>
+            </div>
+            <div class="tree-item sub-item">
+                <span class="tree-icon">📦</span>
+                <span class="tree-label">包装工作站</span>
+            </div>
+            <div class="tree-item sub-item">
+                <span class="tree-icon">🤖</span>
+                <span class="tree-label">工业机器人</span>
+            </div>
+            <div class="tree-item sub-item">
+                <span class="tree-icon">⚙️</span>
+                <span class="tree-label">输送带系统</span>
+            </div>
+            <div class="tree-item sub-item">
+                <span class="tree-icon">📊</span>
+                <span class="tree-label">控制系统</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 右侧面板 -->
+    <div class="right-panel">
+        <div class="panel-header">
+            <h3>设备信息</h3>
+        </div>
+        <div class="info-card">
+            <h4>整体生产线</h4>
+            <div class="info-item">
+                <span class="label">类型：</span>
+                <span class="value">自动化颗粒灌装线</span>
+            </div>
+            <div class="info-item">
+                <span class="label">长度：</span>
+                <span class="value">12米</span>
+            </div>
+            <div class="info-item">
+                <span class="label">工作站数：</span>
+                <span class="value">5个</span>
+            </div>
+            <div class="info-item">
+                <span class="label">生产能力：</span>
+                <span class="value">1200件/小时</span>
+            </div>
+            <div class="info-item">
+                <span class="label">状态：</span>
+                <span class="value status-active">正常运行</span>
+            </div>
+        </div>
+        
+        <div class="control-buttons">
+            <button class="control-btn primary">开始演示</button>
+            <button class="control-btn">暂停</button>
+            <button class="control-btn">重置</button>
+        </div>
+    </div>
+    
+    <!-- 底部工具栏 -->
+    <div class="bottom-toolbar">
+        <div class="toolbar-left">
+            <button class="tool-btn active">
+                <span class="tool-icon">🔍</span>
+                <span class="tool-label">查看</span>
+            </button>
+            <button class="tool-btn">
+                <span class="tool-icon">📎</span>
+                <span class="tool-label">标记</span>
+            </button>
+            <button class="tool-btn">
+                <span class="tool-icon">📊</span>
+                <span class="tool-label">数据</span>
+            </button>
+        </div>
+        <div class="toolbar-center">
+            <div class="breadcrumb">
+                <a href="index.html">首页</a>
+                <span>»</span>
+                <a href="project1_overview.html">项目一</a>
+                <span>»</span>
+                <span>生产线认知</span>
+            </div>
+        </div>
+        <div class="toolbar-right">
+            <button class="toolbar-btn">
+                <span class="btn-icon">⚙️</span>
+                <span class="btn-text">设置</span>
+            </button>
+            <button class="toolbar-btn">
+                <span class="btn-icon">❓</span>
+                <span class="btn-text">帮助</span>
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // 更新时间显示
+        function updateDateTime() {
+            const now = new Date();
+            const dateTimeString = now.toLocaleString('zh-CN');
+            document.getElementById('datetime').textContent = dateTimeString;
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        
+        // 树形结构点击事件
+        document.querySelectorAll('.tree-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.tree-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 更新右侧信息面板
+                const label = this.querySelector('.tree-label').textContent;
+                updateInfoPanel(label);
+            });
+        });
+        
+        // 更新信息面板
+        function updateInfoPanel(componentName) {
+            const infoCard = document.querySelector('.info-card');
+            // 这里可以根据选中的组件更新信息
+            console.log('选中组件：', componentName);
+        }
+        
+        // 标签切换
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // 工具按钮点击
+        document.querySelectorAll('.tool-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
